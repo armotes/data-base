@@ -1,0 +1,60 @@
+https://dev.mysql.com/doc/refman/8.0/en/data-directory-initialization.html
+进入上面那段官网进行安装:
+
+#添加组mysql用户mysql
+groupadd mysql
+useradd mysql
+
+
+#提前在/usr/local创建默认的目录mysql
+mkdir mysql
+
+#进入目录
+cd /usr/local/mysql
+
+#授权
+chown mysql:mysql mysql
+chmod 750 mysql
+
+#切换用户
+su mysql
+
+#初始化数据目录
+bin/mysqld --initialize --user=mysql
+
+
+#bin/mysqld --defaults-file=/etc/my.cnf –initialize –user=mysql
+#bin/mysqld --initialize --user = mysql -V
+#bin/mysqld --defaults-file --initialize --user = mysql
+
+#启动
+/bin/systemctl restart mysqld.service
+
+找不到mysql.sock，mysql.sock丢失问题解决方法
+./mysqld_safe &
+
+
+Ykwkz1WKp.Fj
+
+#修改密码
+alter user 'root'@'localhost' identified by '123456';
+
+
+#创库
+CREATE DATABASE lsx;
+
+#授权IP访问
+grant all privileges on *.* to 'root'@'192.168.0.1' identified by '123456';
+#授权所有IP访问
+GRANT ALL PRIVILEGES ON *.* TO root@"%" ;
+grant all privileges on *.* to 'root'@'%' identified by '4130';
+#授权生效
+flush privileges;
+GRANT ALL PRIVILEGES ON *.* TO root@"%" ;
+create user 'armote'@'%' identified by 'armote';--创建用户
+
+
+1251解决访问:
+alter user root identified by '4130' password expire never;
+alter user root identified with mysql_native_password by '4130';
+flush privileges;
